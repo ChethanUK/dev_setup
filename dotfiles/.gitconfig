@@ -1,0 +1,122 @@
+[alias]
+  # Show verbose output about tags, branches or remotes
+  tags = tag -l
+  branches = branch -a
+  remotes = remote -v
+  # Pretty log output
+  hist = log --graph --pretty=format:'%Cred%h%Creset %s%C(yellow)%d%Creset %Cgreen(%cr)%Creset [%an]' --abbrev-commit --date=relative
+  a      = add
+  ca     = commit -a
+  cam    = commit -am
+  cm     = commit -m
+  s      = status
+  pom    = push origin master
+  pog    = push origin gh-pages
+  puom   = pull origin master
+  puog   = pull origin gh-pages
+  cob    = checkout -b
+  co     = checkout
+  fp     = fetch --prune --all
+  l      = log --oneline --decorate --graph
+  lall   = log --oneline --decorate --graph --all
+  ls     = log --oneline --decorate --graph --stat
+  lt     = log --graph --decorate --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)%an%Creset'
+  identity = "! git config user.name \"$(git config user.$1.name)\"; git config user.email \"$(git config user.$1.email)\"; git config user.signingkey \"$(git config user.$1.signingkey)\"; :"
+
+[color]
+  # Use colors in Git commands that are capable of colored output when
+  # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+  ui = auto
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+# config.personal
+# [user]
+# 	name = ChethanUK
+# 	email = chethanuk@outlook.com
+#   signingkey = 4AEE18F83AFDEB23
+
+# 4AEE18F83AFDEB23
+[core]
+	excludesfile = /Users/chethanuk/.gitignore
+  # attributesfile = ~/.gitattributes
+	# Treat spaces before tabs and all kinds of trailing whitespace as an error.
+	# [default] trailing-space: looks for spaces at the end of a line
+	# [default] space-before-tab: looks for spaces before tabs at the beginning of a line
+	whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+	# Make `git rebase` safer on macOS.
+	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
+	trustctime = false
+
+	# Prevent showing files whose names contain non-ASCII symbols as unversioned.
+	# http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
+	precomposeunicode = false
+
+	# Speed up commands involving untracked files such as `git status`.
+	# https://git-scm.com/docs/git-update-index#_untracked_cache
+	untrackedCache = true
+
+  # sshCommand = "ssh -i  ~/.ssh/id_ed25519"
+
+[pull]
+	ff = only
+# Read more at https://salferrarello.com/git-warning-pulling-without-specifying-how-to-reconcile-divergent-branches-is-discouraged/
+
+# https://dev.to/chakrit/multiple-identity-gitconfig-with-gpg-signing-8c0
+# default case
+[include]
+  path = ~/.git-personal.conf
+
+# when working with company-x
+# NOTE REPLACE YourCompany with your company name
+[includeIf "gitdir:**/YourCompany/**/.git"]
+  path = ~/.git-work.conf
+
+[apply]
+	# Detect whitespace errors when applying a patch.
+	whitespace = fix
+
+[commit]
+	# https://help.github.com/articles/signing-commits-using-gpg/
+	gpgsign = true
+
+[diff]
+	# Detect copies as well as renames.
+	renames = copies
+
+[diff "bin"]
+
+	# Use `hexdump` to diff binary files.
+	textconv = hexdump -v -C
+
+[help]
+	# Automatically correct and execute mistyped commands.
+	autocorrect = 1
+
+# URL shorthands
+
+# [url "git@github.com:"]
+
+# 	insteadOf = "gh:"
+# 	pushInsteadOf = "github:"
+# 	pushInsteadOf = "git://github.com/"
+
+
+# Enforce SSH
+[url "ssh://git@github.com/"]
+  insteadOf = https://github.com/
+[url "ssh://git@gitlab.com/"]
+  insteadOf = https://gitlab.com/
+[url "ssh://git@bitbucket.org/"]
+  insteadOf = https://bitbucket.org/
